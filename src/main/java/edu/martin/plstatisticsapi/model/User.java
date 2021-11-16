@@ -1,12 +1,15 @@
 package edu.martin.plstatisticsapi.model;
 
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import edu.martin.plstatisticsapi.interfaces.INameableDto;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Set;
 
 @Entity
+@XmlRootElement
 public class User implements INameableEntity, INameableDto {
 
   @Id
@@ -17,6 +20,9 @@ public class User implements INameableEntity, INameableDto {
   @Column(unique = true, nullable = false)
   private String name;
 
+  @Column(unique = true, nullable = true)
+  private String email;
+
   @Column(nullable = false)
   private String password;
 
@@ -26,9 +32,10 @@ public class User implements INameableEntity, INameableDto {
   // @formatter:off
   @ManyToMany( /* cascade = { CascadeType.REMOVE }, */fetch = FetchType.EAGER)
   @JoinTable(joinColumns = { @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID") }, inverseJoinColumns = { @JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID") })
+  @XStreamImplicit
   private Set<Role> roles;
-
   // @formatter:on
+
   public User() {
     super();
 
@@ -62,6 +69,14 @@ public class User implements INameableEntity, INameableDto {
 
   public void setName(final String nameToSet) {
     name = nameToSet;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(final String email) {
+    this.email = email;
   }
 
   public String getPassword() {

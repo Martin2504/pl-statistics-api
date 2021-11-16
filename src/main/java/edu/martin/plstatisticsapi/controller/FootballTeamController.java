@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class FootballTeamController extends AbstractController<FootballTeam> imp
 
   @RequestMapping(method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.CREATED)
-  public void create(@RequestBody @Valid FootballTeam footballTeam) {
+  public void create(@RequestBody @Valid FootballTeam footballTeam, HttpServletResponse response) {
     createInternal(footballTeam);
   }
 

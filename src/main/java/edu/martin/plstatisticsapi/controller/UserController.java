@@ -7,6 +7,7 @@ import edu.martin.plstatisticsapi.util.ApiMappings;
 import edu.martin.plstatisticsapi.util.QueryConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -78,6 +79,7 @@ public class UserController extends AbstractController<User> implements ISorting
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   @ResponseStatus(HttpStatus.OK)
+  @Secured("CAN_UPDATE_USER")
   public void update(@PathVariable("id") final Long id, @RequestBody final User resource) {
     updateInternal(id, resource);
   }
@@ -86,6 +88,7 @@ public class UserController extends AbstractController<User> implements ISorting
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.NO_CONTENT)
+  @Secured("CAN_DELETE_USER")
   public void delete(@PathVariable("id") final Long id) {
     deleteByIdInternal(id);
   }

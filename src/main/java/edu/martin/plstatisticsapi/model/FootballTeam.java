@@ -20,7 +20,7 @@ public class FootballTeam implements INameableEntity, INameableDto {
   private String name;
 
   @Column(unique = false, nullable = false)
-  private String address;
+  private String teamAddress;
 
   public FootballTeam() {
     super();
@@ -32,7 +32,7 @@ public class FootballTeam implements INameableEntity, INameableDto {
 
     this.id = id;
     this.name = teamName;
-    this.address = teamAddress;
+    this.teamAddress = teamAddress;
 
   }
 
@@ -57,12 +57,12 @@ public class FootballTeam implements INameableEntity, INameableDto {
     this.name = teamName;
   }
 
-  public String getAddress() {
-    return address;
+  public String getTeamAddress() {
+    return teamAddress;
   }
 
-  public void setAddress(String teamAddress) {
-    this.address = teamAddress;
+  public void setTeamAddress(String teamAddress) {
+    this.teamAddress = teamAddress;
   }
 
   //
