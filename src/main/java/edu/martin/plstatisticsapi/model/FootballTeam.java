@@ -1,18 +1,16 @@
 package edu.martin.plstatisticsapi.model;
 
-import edu.martin.plstatisticsapi.interfaces.INameableDto;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class FootballTeam implements INameableEntity, INameableDto {
+public class FootballTeam {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "TEAM_ID")
-  private Long id;
+  private long id;
 
   @Column(unique = true, nullable = false)
   @Size(min = 2, max = 30)
@@ -20,35 +18,25 @@ public class FootballTeam implements INameableEntity, INameableDto {
   private String name;
 
   @Column(unique = false, nullable = false)
-  private String teamAddress;
-
+  private String address;
   public FootballTeam() {
     super();
   }
 
-  public FootballTeam(Long id, String teamName, String teamAddress) {
-
-    super();
-
+  public FootballTeam(Long id, String teamName, String address) {
     this.id = id;
     this.name = teamName;
-    this.teamAddress = teamAddress;
-
+    this.address = address;
   }
 
-  // API
-
-  @Override
-  public Long getId() {
+  public long getId() {
     return id;
   }
 
-  @Override
   public void setId(Long id) {
     this.id = id;
   }
 
-  @Override
   public String getName() {
     return name;
   }
@@ -57,15 +45,13 @@ public class FootballTeam implements INameableEntity, INameableDto {
     this.name = teamName;
   }
 
-  public String getTeamAddress() {
-    return teamAddress;
+  public String getAddress() {
+    return address;
   }
 
-  public void setTeamAddress(String teamAddress) {
-    this.teamAddress = teamAddress;
+  public void setAddress(String teamAddress) {
+    this.address = teamAddress;
   }
-
-  //
 
   @Override
   public int hashCode() {

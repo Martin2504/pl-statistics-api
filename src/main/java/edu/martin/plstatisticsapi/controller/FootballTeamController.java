@@ -1,94 +1,58 @@
 package edu.martin.plstatisticsapi.controller;
 
-import edu.martin.plstatisticsapi.controller.interfaces.ISortingController;
 import edu.martin.plstatisticsapi.model.FootballTeam;
 import edu.martin.plstatisticsapi.service.FootballTeamService;
-import edu.martin.plstatisticsapi.service.IRawService;
 import edu.martin.plstatisticsapi.util.ApiMappings;
-import edu.martin.plstatisticsapi.util.QueryConstants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
+import java.util.Optional;
+
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping(ApiMappings.API + "/" + ApiMappings.TEAMS)
 @CrossOrigin("*")
-public class FootballTeamController extends AbstractController<FootballTeam> implements ISortingController<FootballTeam> {
+public class FootballTeamController {
 
   @Autowired
   private FootballTeamService service;
 
-  // find all
-
-  @Override
-  @RequestMapping(params = { QueryConstants.PAGE, QueryConstants.SIZE, QueryConstants.SORT_BY }, method = RequestMethod.GET)
-  @ResponseBody
-  public List<FootballTeam> findAllPaginatedAndSorted(int page, int size, String sortBy, String sortOrder) {
-    return findPaginatedAndSortedInternal(page, size, sortBy, sortOrder);
-  }
-
-  @Override
-  @RequestMapping(params = { QueryConstants.PAGE, QueryConstants.SIZE }, method = RequestMethod.GET)
-  @ResponseBody
-  public List<FootballTeam> findAllPaginated(int page, int size) {
-    return findPaginatedInternal(page, size);
-  }
-
-  @Override
-  @RequestMapping(params = { QueryConstants.SORT_BY }, method = RequestMethod.GET)
-  @ResponseBody
-  public List<FootballTeam> findAllSorted(String sortBy, String sortOrder) {
-    return findAllSortedInternal(sortBy, sortOrder);
-  }
-
-  @Override
   @RequestMapping(method = RequestMethod.GET)
   @ResponseBody
-  public List<FootballTeam> findAll(final HttpServletRequest request) {
-    return findAllInternal(request);
+  public List<FootballTeam> findAll() {
+    return service.getAllFootballTeams();
   }
 
   // find one
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   @ResponseBody
-  public FootballTeam findOne(@PathVariable("id") Long id) {
-    return findOneInternal(id);
+  public Optional<FootballTeam> findOne(@PathVariable("id") Long id) {
+    return service.getFootballTeamById(id);
   }
 
   // create
 
   @RequestMapping(method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.CREATED)
-  public void create(@RequestBody @Valid FootballTeam footballTeam, HttpServletResponse response) {
-    createInternal(footballTeam);
+  public void add(@RequestBody FootballTeam footballTeam, HttpServletResponse response) {
+    FootballTeam team = service.saveTeam(footballTeam);
+
+    URI location = ServletUriComponentsBuilder
+      .fromCurrentRequest()
+      .path("/{id}")
+      .buildAndExpand(team.getId())
+      .toUri();
+
+    response.setStatus(CREATED.value());
+    response.setHeader(HttpHeaders.LOCATION, location.getPath());
   }
 
-  // update
-
-  @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-  @ResponseStatus(HttpStatus.OK)
-  public void update(@PathVariable("id") final Long id, @RequestBody @Valid final FootballTeam resource) {
-    updateInternal(id, resource);
-  }
-
-  // delete
-
-  @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void delete(@PathVariable("id") final Long id) {
-    deleteByIdInternal(id);
-  }
-
-  // spring
-
-  @Override
-  protected IRawService<FootballTeam> getService() {
-    return service;
-  }
 }
