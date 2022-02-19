@@ -5,8 +5,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -17,6 +16,10 @@ import javax.persistence.Entity;
 @EqualsAndHashCode(callSuper = false)
 @Slf4j
 public class FootballTeam extends BaseEntity {
+
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "league_team_record_id", referencedColumnName = "id")
+  private LeagueTableRecord leagueTableRecord;
 
   @Column(name = "name")
   private String name;

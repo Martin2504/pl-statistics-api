@@ -5,8 +5,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -18,6 +17,9 @@ import javax.persistence.Entity;
 @Slf4j
 public class LeagueTableRecord extends BaseEntity {
 
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "football_team_id", referencedColumnName = "id")
+  private FootballTeam footballTeam;
 
   @Column(name = "season_goals_home")
   private int seasonGoalsHome;

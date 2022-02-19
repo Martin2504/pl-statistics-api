@@ -11,4 +11,6 @@ public interface FootballTeamService {
   List<FootballTeam> getAllFootballTeams();
 
   Optional<FootballTeam> getFootballTeamById(Long id);
+
+  List<FootballTeam> populateFootballTeams();
 }

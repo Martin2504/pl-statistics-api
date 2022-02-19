@@ -22,12 +22,20 @@ public class FootballTeamServiceImpl implements FootballTeamService {
 
   @Override
   public List<FootballTeam> getAllFootballTeams() {
-    return footballTeamRepository.findAll();
+
+    // TODO: populate football teams instead of null;
+    return (footballTeamRepository.count() < 20) ? populateFootballTeams() : footballTeamRepository.findAll();
   }
 
   @Override
   public Optional<FootballTeam> getFootballTeamById(Long id) {
     return footballTeamRepository.findById(id);
+  }
+
+  @Override
+  public List<FootballTeam> populateFootballTeams() {
+    // TODO: Make a call to the Rest endpoint: https://api.football-data-api.com/league-teams (insomnia) and return the list
+    return null;
   }
 
 }
