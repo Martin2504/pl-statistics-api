@@ -1,6 +1,6 @@
 package edu.martin.plstatisticsapi.controller;
 
-import edu.martin.plstatisticsapi.model.FootballTeam;
+import edu.martin.plstatisticsapi.model.entity.FootballTeam;
 import edu.martin.plstatisticsapi.service.FootballTeamService;
 import edu.martin.plstatisticsapi.util.ApiMappings;
 import org.springframework.beans.factory.annotation.Autowired;

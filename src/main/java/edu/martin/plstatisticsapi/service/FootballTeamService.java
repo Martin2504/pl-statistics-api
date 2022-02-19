@@ -1,6 +1,6 @@
 package edu.martin.plstatisticsapi.service;
 
-import edu.martin.plstatisticsapi.model.FootballTeam;
+import edu.martin.plstatisticsapi.model.entity.FootballTeam;
 
 import java.util.List;
 import java.util.Optional;
