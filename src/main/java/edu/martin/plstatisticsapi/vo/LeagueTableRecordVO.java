@@ -1,6 +1,9 @@
 package edu.martin.plstatisticsapi.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.martin.plstatisticsapi.core.vo.BaseVO;
+import edu.martin.plstatisticsapi.model.entity.LeagueTableRecord;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,46 +15,88 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class LeagueTableRecordVO extends BaseVO {
 
-  private int seasonGoals_home;
+    @JsonProperty("id")
+    private int teamId;
 
-  private int seasonConceded;
+    @JsonProperty("seasonGoals_home")
+    private int seasonGoalsHome;
 
-  private int seasonGoals_away;
+    private int seasonConceded;
 
-  private int seasonConceded_away;
+    @JsonProperty("seasonGoals_away")
+    private int seasonGoalsAway;
 
-  private int seasonConceded_home;
+    @JsonProperty("seasonConceded_away")
+    private int seasonConcededAway;
 
-  private int seasonGoals;
+    @JsonProperty("seasonConceded_home")
+    private int seasonConcededHome;
 
-  private int points;
+    private int seasonGoals;
 
-  private float ppg_overall;
+    private int points;
 
-  private int seasonGoalDifference;
+    @JsonProperty("ppg_overall")
+    private float ppgOverall;
 
-  private int seasonWins_home;
+    private int seasonGoalDifference;
 
-  private int seasonWins_away;
+    @JsonProperty("seasonWins_home")
+    private int seasonWinsHome;
 
-  private int seasonWins_overall;
+    @JsonProperty("seasonWins_away")
+    private int seasonWinsAway;
 
-  private int seasonDraws_home;
+    @JsonProperty("seasonWins_overall")
+    private int seasonWinsOverall;
 
-  private int seasonDraws_away;
+    @JsonProperty("seasonDraws_home")
+    private int seasonDrawsHome;
 
-  private int seasonDraws_overall;
+    @JsonProperty("seasonDraws_away")
+    private int seasonDrawsAway;
 
-  private int seasonLosses_away;
+    @JsonProperty("seasonDraws_overall")
+    private int seasonDrawsOverall;
 
-  private int seasonLosses_home;
+    @JsonProperty("seasonLosses_away")
+    private int seasonLossesAway;
 
-  private int seasonLosses_overall;
+    @JsonProperty("seasonLosses_home")
+    private int seasonLossesHome;
 
-  private int matchesPlayed;
+    @JsonProperty("seasonLosses_overall")
+    private int seasonLossesOverall;
 
-  private FootballTeamVO footballTeam;
+    private int matchesPlayed;
 
+    private FootballTeamVO footballTeam;
+
+    public LeagueTableRecord getRecord() {
+        return new LeagueTableRecord(
+                null,
+                seasonGoalsHome,
+                seasonConceded,
+                seasonGoalsAway,
+                seasonConcededAway,
+                seasonConcededHome,
+                seasonGoals,
+                points,
+                ppgOverall,
+                seasonGoalDifference,
+                seasonWinsHome,
+                seasonWinsAway,
+                seasonWinsOverall,
+                seasonDrawsHome,
+                seasonDrawsAway,
+                seasonDrawsOverall,
+                seasonLossesAway,
+                seasonLossesHome,
+                seasonLossesOverall,
+                matchesPlayed
+        );
+    }
 }

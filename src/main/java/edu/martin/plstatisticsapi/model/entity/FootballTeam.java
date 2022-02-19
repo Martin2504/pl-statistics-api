@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
 @RequiredArgsConstructor
 @ToString(callSuper = true)
 @SuperBuilder
@@ -17,9 +18,12 @@ import javax.persistence.*;
 @Slf4j
 public class FootballTeam extends BaseEntity {
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JoinColumn(name = "league_team_record_id", referencedColumnName = "id")
   private LeagueTableRecord leagueTableRecord;
+
+  @Column(name = "external_id")
+  private int externalId;
 
   @Column(name = "name")
   private String name;
@@ -85,7 +89,7 @@ public class FootballTeam extends BaseEntity {
   private String altNames;
 
   @Column(name = "official_web_site")
-  private String official_web_site;
+  private String officialSites;
 
   @Override
   public int hashCode() {

@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
 @RequiredArgsConstructor
 @ToString(callSuper = true)
 @SuperBuilder
@@ -43,7 +44,7 @@ public class LeagueTableRecord extends BaseEntity {
   private int points;
 
   @Column(name = "ppg_overall")
-  private int ppgOverall;
+  private float ppgOverall;
 
   @Column(name = "season_goal_difference")
   private int seasonGoalDifference;
@@ -77,35 +78,5 @@ public class LeagueTableRecord extends BaseEntity {
 
   @Column(name = "matches_played")
   private int matchesPlayed;
-
-  /*
-  consider using team ID as foreign key at this point onwards.
-   */
-  @Column(name = "name")
-  private String name;
-
-  @Column(name = "country")
-  private String country;
-
-  @Column(name = "cleanName")
-  private String cleanName;
-
-  @Column(name = "shortHand")
-  private String shortHand;
-
-  @Column(name = "url")
-  private String url;
-
-  @Column(name = "season_url_overall")
-  private String seasonUrlOverall;
-
-  @Column(name = "season_url_home")
-  private String seasonUrlHome;
-
-  @Column(name = "season_url_away")
-  private String seasonUrlAway;
-
-  @Column(name = "position")
-  private String position;
 
 }

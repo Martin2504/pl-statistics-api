@@ -1,7 +1,10 @@
 package edu.martin.plstatisticsapi.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import edu.martin.plstatisticsapi.core.vo.BaseVO;
+import edu.martin.plstatisticsapi.model.entity.FootballTeam;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,17 +16,18 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@JsonTypeInfo(
-  use = JsonTypeInfo.Id.NAME,
-  property = "_type"
-)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FootballTeamVO extends BaseVO {
+
+  @JsonProperty("id")
+  private int externalId;
 
   private String name;
 
   private String cleanName;
 
-  private String english_name;
+  @JsonProperty("english_name")
+  private String englishName;
 
   private String shortHand;
 
@@ -35,7 +39,8 @@ public class FootballTeamVO extends BaseVO {
 
   private String image;
 
-  private String flag_element;
+  @JsonProperty("flag_element")
+  private String flagElement;
 
   private String season;
 
@@ -43,24 +48,62 @@ public class FootballTeamVO extends BaseVO {
 
   private String url;
 
-  private String stadium_name;
+  @JsonProperty("stadium_name")
+  private String stadiumName;
 
-  private String stadium_address;
+  @JsonProperty("stadium_address")
+  private String stadiumAddress;
 
-  private String table_position;
+  @JsonProperty("table_position")
+  private String tablePosition;
 
-  private String performance_rank;
+  @JsonProperty("performance_rank")
+  private String performanceRank;
 
   private String risk;
 
-  private String season_format;
+  @JsonProperty("season_format")
+  private String seasonFormat;
 
-  private String competition_id;
+  @JsonProperty("competition_id")
+  private String competitionId;
 
-  private String full_name;
+  @JsonProperty("full_name")
+  private String fullName;
 
-  private String alt_names;
+  @JsonProperty("alt_names")
+  private String[] altNames;
 
-  private String official_sites;
+  @JsonProperty("official_sites")
+  private String[] officialSites;
+
+  public FootballTeam getFootballTeam() {
+    return new FootballTeam(
+            null,
+            externalId,
+            name,
+            cleanName,
+            englishName,
+            shortHand,
+            country,
+            continent,
+            founded,
+            image,
+            flagElement,
+            season,
+            seasonClean,
+            url,
+            stadiumName,
+            stadiumAddress,
+            tablePosition,
+            performanceRank,
+            risk,
+            seasonFormat,
+            competitionId,
+            fullName,
+            String.join(", ",altNames),
+            String.join(", ",officialSites)
+    );
+  }
 
 }

@@ -9,7 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 
 @Data
 @MappedSuperclass
@@ -20,11 +20,11 @@ public abstract class BaseEntity implements Serializable {
 
   @Column(name = "s_date_created", nullable = false, updatable = false)
   @CreatedDate
-  private ZonedDateTime createdAt;
+  private Instant createdAt = Instant.now();
 
   @Column(name = "s_date_last_edited", nullable = false)
   @LastModifiedDate
-  private ZonedDateTime updatedAt;
+  private Instant updatedAt = Instant.now();
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
