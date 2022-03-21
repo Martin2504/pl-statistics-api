@@ -11,7 +11,7 @@ import edu.martin.plstatisticsapi.service.FootballTeamService;
 import edu.martin.plstatisticsapi.vo.FootballTeamVO;
 import edu.martin.plstatisticsapi.vo.LeagueTableRecordVO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class FootballTeamServiceImpl implements FootballTeamService {
 
   private final FootballTeamRepository footballTeamRepository;
@@ -46,6 +47,8 @@ public class FootballTeamServiceImpl implements FootballTeamService {
   @Override
   public List<FootballTeam> populateFootballTeams() {
 
+    log.info("---> The teams table is about to be populated.");
+
     String getTeamsUrl = "https://api.football-data-api.com/league-teams?key=example&season_id=4759&include%3Dstats";
     String getLeagueTableRecordsUrl = "https://api.football-data-api.com/league-tables?key=example&league_id=4759";
     ResponseEntity<String> responseTeams = restTemplate.getForEntity(getTeamsUrl, String.class);
@@ -69,12 +72,14 @@ public class FootballTeamServiceImpl implements FootballTeamService {
         LeagueTableRecord recordEntity = recordVo.getRecord();
         recordEntity.setFootballTeam(team);
         team.setLeagueTableRecord(recordVo.getRecord());
+        log.info(team.getName() + " has been added.");
       });
       footballTeamRepository.saveAll(resultTeams);
+      log.info("---> The teams table have been populated.");
       return resultTeams;
 
     } catch (JsonProcessingException e) {
-      e.printStackTrace();
+      log.error("Error while populating teams table: " + e.getOriginalMessage());
     }
 
 
