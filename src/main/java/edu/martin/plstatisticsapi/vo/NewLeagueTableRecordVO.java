@@ -1,4 +1,4 @@
-package edu.martin.plstatisticsapi.vo;
+package edu.martin.plstatisticsapi.builder.vo;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.AllArgsConstructor;

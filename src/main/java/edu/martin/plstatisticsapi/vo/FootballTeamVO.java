@@ -1,8 +1,7 @@
-package edu.martin.plstatisticsapi.vo;
+package edu.martin.plstatisticsapi.builder.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import edu.martin.plstatisticsapi.core.vo.BaseVO;
 import edu.martin.plstatisticsapi.model.entity.FootballTeam;
 import lombok.AllArgsConstructor;

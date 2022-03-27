@@ -4,6 +4,7 @@ import edu.martin.plstatisticsapi.model.DAOUser;
 import edu.martin.plstatisticsapi.model.UserDTO;
 import edu.martin.plstatisticsapi.repository.UserDao;
 import edu.martin.plstatisticsapi.service.JwtUserDetailsService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,8 +14,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
+@AllArgsConstructor
 public class JwtUserDetailsServiceImpl implements JwtUserDetailsService {
-	
+
 	@Autowired
 	private UserDao userDao;
 
@@ -27,10 +29,14 @@ public class JwtUserDetailsServiceImpl implements JwtUserDetailsService {
 		if (user == null) {
 			throw new UsernameNotFoundException("User not found with username: " + username);
 		}
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-				new ArrayList<>());
+
+		return new org.springframework.security.core.userdetails.User(
+				user.getUsername(),
+				user.getPassword(),
+				new ArrayList<>()
+		);
 	}
-	
+
 	public DAOUser save(UserDTO user) {
 		DAOUser newUser = new DAOUser();
 		newUser.setUsername(user.getUsername());
