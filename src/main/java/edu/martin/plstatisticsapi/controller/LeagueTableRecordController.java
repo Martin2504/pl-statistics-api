@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(ApiMappings.API + "/" + ApiMappings.LEAGUE_TABLE)
-@CrossOrigin("*")
+@RequestMapping(value = ApiMappings.API + "/" + ApiMappings.LEAGUE_TABLE, method = RequestMethod.GET)
+@CrossOrigin(origins = "http://localhost:3000/")
 public class LeagueTableRecordController {
 
   @Autowired

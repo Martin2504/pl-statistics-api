@@ -18,7 +18,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping(ApiMappings.API + "/" + ApiMappings.TEAMS)
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:3000")
 public class FootballTeamController {
 
   @Autowired
